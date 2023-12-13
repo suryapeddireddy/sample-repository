@@ -25,6 +25,7 @@ long long Pow(long long a, long long b) {
 long long modinv(long long b, long long m) {
     return Pow(b, mod - 2);
 }
+
 vector<int> prime_factors(int n) {
    unordered_set<int> s;
    vector<int> res;
@@ -48,6 +49,39 @@ vector<int> prime_factors(int n) {
     for(auto z: s)res.push_back(z);
 
     return res;
+}
+
+#include <iostream>
+#include <vector>
+
+void sieve_of_eratosthenes(int limit) {
+// t.c==0(1)
+    // Create a boolean vector "is_prime" to mark the numbers as prime or not
+    vector<bool> is_prime(limit + 1, true);
+
+    // 0 and 1 are not prime numbers
+    is_prime[0] = is_prime[1] = false;
+
+    // Iterate through the numbers starting from 2
+    for (int i = 2; i * i <= limit; ++i) {
+        // If i is a prime number
+        if (is_prime[i]) {
+            // Mark all multiples of i as not prime
+            for (int j = i * i; j <= limit; j += i) {
+                is_prime[j] = false;
+            }
+        }
+    }
+}
+
+int main() {
+    int limit;
+    std::cout << "Enter the limit for finding prime numbers: ";
+    std::cin >> limit;
+
+    sieve_of_eratosthenes(limit);
+
+    return 0;
 }
 
 int main(){
