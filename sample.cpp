@@ -25,6 +25,31 @@ long long Pow(long long a, long long b) {
 long long modinv(long long b, long long m) {
     return Pow(b, mod - 2);
 }
+vector<int> prime_factors(int n) {
+   unordered_set<int> s;
+   vector<int> res;
+    while (n % 2 == 0) {
+        n /= 2;
+    s.insert(2);
+    }
+
+    // Divide by odd numbers starting from 3
+    for (int i = 3; i * i <= n; i += 2) {
+        while (n % i == 0) {
+            n /= i;
+        s.insert(i);
+        }
+    }
+
+    // If n is a prime greater than 2
+    if (n > 2) {
+    s.insert(n);
+    }
+    for(auto z: s)res.push_back(z);
+
+    return res;
+}
+
 int main(){
 int n; cin>>n;
 cout<<"congratulations You have made Your first sample repository"<<endl;
