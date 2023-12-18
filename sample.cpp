@@ -2,6 +2,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 int mod=1e9+7;
+int ct=0;
+void merge(std::vector<int>& nums, int start, int mid, int end, int diff) {
+        int l = start, r = mid + 1;
+        while (l <= mid && r <= end) {
+            if (nums[l] <= (nums[r] + diff)) {
+                ct += (end - r + 1);
+                l++;
+            } else {
+                r++;
+            }
+        }
+        
+        // Merge step
+        std::inplace_merge(nums.begin() + start, nums.begin() + mid + 1, nums.begin() + end + 1);
+    }
+
+    void mergesort(std::vector<int>& nums, int l, int r, int diff) {
+        if (l >= r) return;
+        int mid = (l + r) / 2;
+        mergesort(nums, l, mid, diff);
+        mergesort(nums, mid + 1, r, diff);
+        merge(nums, l, mid, r, diff);
+    }
+    
 long long Pow(long long a, long long b) {
     long long result = 1;
 
